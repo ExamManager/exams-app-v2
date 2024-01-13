@@ -2,13 +2,14 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import GitHubProvider from "next-auth/providers/github"
-import { Client } from "postmark"
 
 import { env } from "@/env.mjs"
 import { siteConfig } from "@/config/site"
 import { db } from "@/lib/db"
+import { EmailTemplate } from '../components/emails/test';
+import { Resend } from 'resend';
 
-const postmarkClient = new Client(env.POSTMARK_API_TOKEN)
+const resend = new Resend(env.RESEND_API_KEY);
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -24,44 +25,32 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
     EmailProvider({
-      from: env.SMTP_FROM,
-      sendVerificationRequest: async ({ identifier, url, provider }) => {
-        const user = await db.user.findUnique({
-          where: {
-            email: identifier,
-          },
-          select: {
-            emailVerified: true,
-          },
-        })
-
-        const templateId = user?.emailVerified
-          ? env.POSTMARK_SIGN_IN_TEMPLATE
-          : env.POSTMARK_ACTIVATION_TEMPLATE
-        if (!templateId) {
-          throw new Error("Missing template id")
-        }
-
-        const result = await postmarkClient.sendEmailWithTemplate({
-          TemplateId: parseInt(templateId),
-          To: identifier,
-          From: provider.from as string,
-          TemplateModel: {
-            action_url: url,
-            product_name: siteConfig.name,
-          },
-          Headers: [
-            {
-              // Set this to prevent Gmail from threading emails.
-              // See https://stackoverflow.com/questions/23434110/force-emails-not-to-be-grouped-into-conversations/25435722.
-              Name: "X-Entity-Ref-ID",
-              Value: new Date().getTime() + "",
+      sendVerificationRequest: async ({ identifier, url }) => {
+        try {
+          const user = await db.user.findUnique({
+            where: {
+              email: identifier,
             },
-          ],
-        })
+            select: {
+              emailVerified: true,
+            },
+          })
 
-        if (result.ErrorCode) {
-          throw new Error(result.Message)
+          const data = await resend.emails.send({
+            from: 'ExamManager <support@examtimer.tech>',
+            to: identifier,
+            subject: 'Activate Account',
+            react: EmailTemplate({ action_url: url }),
+            text: 'Actiavte your account here: ' + url
+          });
+
+          if (data.error) {
+            // If data.error is an object, stringify it
+            throw new Error(JSON.stringify(data.error))
+          }
+        } catch (error) {
+          console.error('An error occurred:', error);
+          // Handle the error appropriately here
         }
       },
     }),

@@ -40,10 +40,10 @@ export function DocsSidebarNavItems({
 }: DocsSidebarNavItemsProps) {
   return items?.length ? (
     <div className="grid grid-flow-row auto-rows-max text-sm">
-      {items.map((item, index) =>
+      {items.map((item) =>
         !item.disabled && item.href ? (
           <Link
-            key={index}
+            key={item.href} // Use item.href as key
             href={item.href}
             className={cn(
               "flex w-full items-center rounded-md p-2 hover:underline",
@@ -57,7 +57,7 @@ export function DocsSidebarNavItems({
             {item.title}
           </Link>
         ) : (
-          <span className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60">
+          <span key={item.title} className="flex w-full cursor-not-allowed items-center rounded-md p-2 opacity-60">
             {item.title}
           </span>
         )

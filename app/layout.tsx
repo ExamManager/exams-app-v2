@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-
+import { CommandK } from "@/components/cmdk"
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -79,9 +79,10 @@ export const viewport: Viewport = {
   ],
 }
 
+
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className='scroll-smooth'>
       <head />
       <body
         className={cn(
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           <Analytics />
+          <CommandK />
           <Toaster />
           {/* <TailwindIndicator /> */}
         </ThemeProvider>

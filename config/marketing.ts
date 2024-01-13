@@ -1,22 +1,18 @@
 import { MarketingConfig } from "types"
 
 export const marketingConfig: MarketingConfig = {
+  presets: [
+        {
+          GettingStarted: true,
+          Solutions: true,
+          Documentation: true,
+        },
+      ],
   mainNav: [
-    {
-      title: "Features",
-      href: "/#features",
-    },
-    {
-      title: "Pricing",
-      href: "/pricing",
-    },
-    {
-      title: "Blog",
-      href: "/blog",
-    },
-    {
-      title: "Documentation",
-      href: "/docs",
-    },
-  ],
+        {
+          title: "Pricing",
+          href: "/prices",
+          disabled: true,
+        },
+      ],
 }

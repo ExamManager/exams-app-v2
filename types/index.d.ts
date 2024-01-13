@@ -11,6 +11,12 @@ export type NavItem = {
 
 export type MainNavItem = NavItem
 
+export type MainNavPresets = {
+  GettingStarted: Boolean
+  Solutions: Boolean
+  Documentation: Boolean
+}
+
 export type SidebarNavItem = {
   title: string
   disabled?: boolean
@@ -39,15 +45,18 @@ export type SiteConfig = {
 }
 
 export type DocsConfig = {
+  presets: MainNavPresets[]
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
 
 export type MarketingConfig = {
+  presets: MainNavPresets[]
   mainNav: MainNavItem[]
 }
 
 export type DashboardConfig = {
+  presets: MainNavPresets[]
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }

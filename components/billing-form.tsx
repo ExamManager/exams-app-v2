@@ -13,8 +13,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
+import { DollarSign } from "lucide-react"
 
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
   subscriptionPlan: UserSubscriptionPlan & {
@@ -51,7 +65,7 @@ export function BillingForm({
     if (session) {
       window.location.href = session.url
     }
-  }
+}
 
   return (
     <form className={cn(className)} onSubmit={onSubmit} {...props}>
@@ -64,8 +78,10 @@ export function BillingForm({
           </CardDescription>
         </CardHeader>
         <CardContent>{subscriptionPlan.description}</CardContent>
-        <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
-          <button
+        <CardFooter className="flex flex-col max-md:space-y-2 md:flex-row md:space-x-2">
+        <HoverCard>
+      <HoverCardTrigger asChild>
+      <button
             type="submit"
             className={cn(buttonVariants())}
             disabled={isLoading}
@@ -75,7 +91,30 @@ export function BillingForm({
             )}
             {subscriptionPlan.isPro ? "Manage Subscription" : "Upgrade to PRO"}
           </button>
-          {subscriptionPlan.isPro ? (
+          </HoverCardTrigger>
+      <HoverCardContent className="w-80">
+        <div className="flex justify-between space-x-4">
+          <Avatar>
+            <AvatarImage src="https://github.com/ExamManager.png" />
+            <AvatarFallback><Icons.spinner className=" h-4 w-4 animate-spin" /></AvatarFallback>
+          </Avatar>
+          <div className="space-y-1">
+            <h4 className="text-sm font-semibold">ExamManager Pro</h4>
+            <p className="text-xs">
+              Need to manage more than 3 exams at a time? Upgrade to ExamManager Pro...
+            </p>
+            <div className="flex items-center pt-2">
+              <DollarSign className="mr-2 h-4 w-4 opacity-70" />{" "}
+              <span className="text-xs text-muted-foreground">
+                Starting at $9/mo
+              </span>
+            </div>
+          </div>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
+
+    {subscriptionPlan.isPro ? (
             <p className="rounded-full text-xs font-medium">
               {subscriptionPlan.isCanceled
                 ? "Your plan will be canceled on "

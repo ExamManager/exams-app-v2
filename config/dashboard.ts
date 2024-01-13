@@ -1,11 +1,14 @@
 import { DashboardConfig } from "types"
 
 export const dashboardConfig: DashboardConfig = {
-  mainNav: [
+  presets: [
     {
-      title: "Documentation",
-      href: "/docs",
+      GettingStarted: true,
+      Solutions: false,
+      Documentation: true,
     },
+  ],
+  mainNav: [
     {
       title: "Support",
       href: "/support",

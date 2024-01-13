@@ -1,11 +1,14 @@
 import { DocsConfig } from "types"
 
 export const docsConfig: DocsConfig = {
-  mainNav: [
+  presets: [
     {
-      title: "Documentation",
-      href: "/docs",
+      GettingStarted: true,
+      Solutions: true,
+      Documentation: false,
     },
+  ],
+  mainNav: [
     {
       title: "Guides",
       href: "/guides",

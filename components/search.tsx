@@ -5,17 +5,20 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
+import { title } from "process"
 
 interface DocsSearchProps extends React.HTMLAttributes<HTMLFormElement> {}
 
 export function DocsSearch({ className, ...props }: DocsSearchProps) {
   function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
-
+    // it doesnt update
     return toast({
-      title: "Not implemented",
-      description: "We're still working on the search.",
-    })
+      title: "Something went wrong.",
+      description: "Your post was not created. Please try again.",
+      variant: "destructive",
+  })
+
   }
 
   return (
