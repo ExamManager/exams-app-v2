@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { authOptions } from "@/lib/auth"
 
 import { timerConfig } from "@/config/timer"
 import { cn } from "@/lib/utils"
@@ -16,7 +18,11 @@ interface TimerLayoutProps {
 export default async function TimerLayout({
   children,
 }: TimerLayoutProps) {
-  const user = await getCurrentUser()
+    const user = await getCurrentUser()
+
+    if (!user) {
+        redirect(authOptions?.pages?.signIn || "/login")
+    }
   return (
     <div className="flex min-h-screen flex-col">
       <header className="container z-40 bg-background">

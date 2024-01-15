@@ -8,7 +8,6 @@ import { SiteFooter } from "@/components/site-footer"
 import { getCurrentUser } from "@/lib/session"
 import { UserAccountNav } from "@/components/user-account-nav"
 
-import { dashboardConfig } from "@/config/dashboard"
 interface MarketingLayoutProps {
   children: React.ReactNode
 }
