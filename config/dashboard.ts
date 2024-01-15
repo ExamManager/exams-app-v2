@@ -1,6 +1,6 @@
-import { MarketingConfig } from "types"
+import { DashboardConfig } from "types"
 
-export const marketingConfig: MarketingConfig = {
+export const dashboardConfig: DashboardConfig = {
   presets: [
         {
           GettingStarted: true,
@@ -10,7 +10,7 @@ export const marketingConfig: MarketingConfig = {
       ],
   accountPresets: [
     {
-      AccountBadge: true,
+      AccountBadge: false,
       DashboardBadge: true,
       UserMenu: true,
       TeamMenu: true,
@@ -23,4 +23,16 @@ export const marketingConfig: MarketingConfig = {
           disabled: true,
         },
       ],
+  sidebarNav: [
+        {
+          title: "Dashboard",
+          href: "/dashboard",
+          icon: "home",
+        },
+        {
+          title: "Exams",
+          href: "/dashboard/exams",
+          icon: "logo",
+        },
+  ]
 }

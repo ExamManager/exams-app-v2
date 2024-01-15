@@ -17,6 +17,13 @@ export type MainNavPresets = {
   Documentation: Boolean
 }
 
+export type AccountNavPresets = {
+  AccountBadge: Boolean
+  DashboardBadge: Boolean
+  UserMenu: Boolean
+  TeamMenu: Boolean
+}
+
 export type SidebarNavItem = {
   title: string
   disabled?: boolean
@@ -46,22 +53,27 @@ export type SiteConfig = {
 
 export type DocsConfig = {
   presets: MainNavPresets[]
+  accountPresets: AccountNavPresets[]
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
 
 export type MarketingConfig = {
   presets: MainNavPresets[]
+  accountPresets: AccountNavPresets[]
   mainNav: MainNavItem[]
 }
 
-export type TimerConfig = {
+export type DashboardConfig = {
   presets: MainNavPresets[]
+  accountPresets: AccountNavPresets[]
   mainNav: MainNavItem[]
+  sidebarNav: SidebarNavItem[]
 }
 
 export type AccountConfig = {
   presets: MainNavPresets[]
+  accountPresets: AccountNavPresets[]
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }

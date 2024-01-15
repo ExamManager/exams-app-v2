@@ -8,6 +8,14 @@ export const accountConfig: AccountConfig = {
       Documentation: true,
     },
   ],
+  accountPresets: [
+    {
+      AccountBadge: true,
+      DashboardBadge: true,
+      UserMenu: true,
+      TeamMenu: true,
+    },
+  ],
   mainNav: [
     {
       title: "Support",

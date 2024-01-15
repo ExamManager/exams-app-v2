@@ -24,6 +24,7 @@ import {
   User,
   BookCheck,
   X,
+  Home,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -31,6 +32,7 @@ export type Icon = LucideIcon
 
 export const Icons = {
   logo: BookCheck,
+  home: Home,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,

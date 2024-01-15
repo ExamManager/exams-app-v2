@@ -8,6 +8,14 @@ export const docsConfig: DocsConfig = {
       Documentation: false,
     },
   ],
+  accountPresets: [
+    {
+      AccountBadge: true,
+      DashboardBadge: true,
+      UserMenu: true,
+      TeamMenu: true,
+    },
+  ],
   mainNav: [
     {
       title: "Guides",

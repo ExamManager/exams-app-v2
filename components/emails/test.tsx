@@ -8,7 +8,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   action_url,
 }) => (
   <div>
-    <h1>Welcome to ExamTimer!</h1>
+    <h1>Welcome to ExamDashboard!</h1>
     <p>
       Activate your account by clicking the link below: <br />
       {action_url}

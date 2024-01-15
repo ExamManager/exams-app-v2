@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
           })
 
           const data = await resend.emails.send({
-            from: 'ExamManager <support@examtimer.tech>',
+            from: 'ExamManager <support@examdashboard.tech>',
             to: identifier,
             subject: 'Activate Account',
             react: EmailTemplate({ action_url: url }),
