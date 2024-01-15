@@ -25,7 +25,7 @@ import TeamSwitcher from "@/components/team-switcher"
 
 export const metadata: Metadata = {
   title: "Dashboard",
-  description: "Example dashboard app built using the components.",
+  description: "View your dashboard.",
 }
 
 export default function DashboardPage() {
