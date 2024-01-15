@@ -55,6 +55,11 @@ export type MarketingConfig = {
   mainNav: MainNavItem[]
 }
 
+export type TimerConfig = {
+  presets: MainNavPresets[]
+  mainNav: MainNavItem[]
+}
+
 export type DashboardConfig = {
   presets: MainNavPresets[]
   mainNav: MainNavItem[]

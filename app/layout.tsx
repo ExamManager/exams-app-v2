@@ -43,11 +43,11 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "shadcn",
-      url: "https://shadcn.com",
+      name: "daniensi",
+      url: "https://bitstore.dev",
     },
   ],
-  creator: "shadcn",
+  creator: "daniensi",
 
   openGraph: {
     type: "website",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
-    creator: "@shadcn",
+    creator: "@dani_duese",
   },
   icons: {
     icon: "/favicon.ico",

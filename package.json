@@ -1,10 +1,10 @@
 {
-  "name": "taxonomy",
+  "name": "exammanager_v2",
   "version": "0.2.0",
   "private": true,
   "author": {
-    "name": "shadcn",
-    "url": "https://twitter.com/shadcn"
+    "name": "daniensi",
+    "url": "https://twitter.com/dani_duese"
   },
   "scripts": {
     "dev": "concurrently \"contentlayer dev\" \"next dev\"",
