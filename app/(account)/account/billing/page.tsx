@@ -13,9 +13,9 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { BillingForm } from "@/components/billing-form"
-import { DashboardHeader } from "@/components/header"
+import { AccountHeader } from "@/components/header"
 import { Icons } from "@/components/icons"
-import { DashboardShell } from "@/components/shell"
+import { AccountShell } from "@/components/shell"
 
 export const metadata = {
   title: "Billing",
@@ -41,8 +41,8 @@ export default async function BillingPage() {
   }
 
   return (
-    <DashboardShell>
-      <DashboardHeader
+    <AccountShell>
+      <AccountHeader
         heading="Billing"
         text="Manage billing and your subscription plan."
       />
@@ -71,6 +71,6 @@ export default async function BillingPage() {
           }}
         />
       </div>
-    </DashboardShell>
+    </AccountShell>
   )
 }

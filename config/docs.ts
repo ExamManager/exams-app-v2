@@ -76,7 +76,7 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Dashboard",
+      title: "Account",
       items: [
         {
           title: "Introduction",

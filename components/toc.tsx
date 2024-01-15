@@ -10,7 +10,7 @@ interface TocProps {
   toc: TableOfContents
 }
 
-export function DashboardTableOfContents({ toc }: TocProps) {
+export function AccountTableOfContents({ toc }: TocProps) {
   const itemIds = React.useMemo(
     () =>
       toc.items

@@ -4,16 +4,16 @@ import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
-import { DashboardHeader } from "@/components/header"
+import { AccountHeader } from "@/components/header"
 import { PostCreateButton } from "@/components/post-create-button"
 import { PostItem } from "@/components/post-item"
-import { DashboardShell } from "@/components/shell"
+import { AccountShell } from "@/components/shell"
 
 export const metadata = {
-  title: "Dashboard",
+  title: "Account",
 }
 
-export default async function DashboardPage() {
+export default async function AccountPage() {
   const user = await getCurrentUser()
 
   if (!user) {
@@ -36,10 +36,10 @@ export default async function DashboardPage() {
   })
 
   return (
-    <DashboardShell>
-      <DashboardHeader heading="Posts" text="Create and manage posts.">
+    <AccountShell>
+      <AccountHeader heading="Posts" text="Create and manage posts.">
         <PostCreateButton />
-      </DashboardHeader>
+      </AccountHeader>
       <div>
         {posts?.length ? (
           <div className="divide-y divide-border rounded-md border">
@@ -58,6 +58,6 @@ export default async function DashboardPage() {
           </EmptyPlaceholder>
         )}
       </div>
-    </DashboardShell>
+    </AccountShell>
   )
 }

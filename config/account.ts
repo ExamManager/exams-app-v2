@@ -1,6 +1,6 @@
-import { DashboardConfig } from "types"
+import { AccountConfig } from "types"
 
-export const dashboardConfig: DashboardConfig = {
+export const accountConfig: AccountConfig = {
   presets: [
     {
       GettingStarted: true,

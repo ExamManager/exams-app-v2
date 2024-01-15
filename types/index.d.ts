@@ -60,7 +60,7 @@ export type TimerConfig = {
   mainNav: MainNavItem[]
 }
 
-export type DashboardConfig = {
+export type AccountConfig = {
   presets: MainNavPresets[]
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]

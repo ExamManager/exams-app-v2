@@ -36,7 +36,7 @@ export default function PricingPage() {
               <Icons.check className="mr-2 h-4 w-4" /> Custom domain
             </li>
             <li className="flex items-center">
-              <Icons.check className="mr-2 h-4 w-4" /> Dashboard Analytics
+              <Icons.check className="mr-2 h-4 w-4" /> Account Analytics
             </li>
             <li className="flex items-center">
               <Icons.check className="mr-2 h-4 w-4" /> Access to Discord

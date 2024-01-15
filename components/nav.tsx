@@ -7,11 +7,11 @@ import { SidebarNavItem } from "types"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
-interface DashboardNavProps {
+interface AccountNavProps {
   items: SidebarNavItem[]
 }
 
-export function DashboardNav({ items }: DashboardNavProps) {
+export function AccountNav({ items }: AccountNavProps) {
   const path = usePathname()
 
   if (!items?.length) {

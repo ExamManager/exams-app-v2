@@ -10,7 +10,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { getCurrentUser } from "@/lib/session"
 import { UserAccountNav } from "@/components/user-account-nav"
 
-import { dashboardConfig } from "@/config/dashboard"
+import { accountConfig } from "@/config/account"
 interface TimerLayoutProps {
   children: React.ReactNode
 }
@@ -36,7 +36,7 @@ export default async function TimerLayout({
                 "px-4"
               )}
             >
-              {user ? "Dashboard" : "Login"}
+              {user ? "Account" : "Login"}
             </Link>
             {user && (
               <UserAccountNav 

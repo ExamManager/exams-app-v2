@@ -29,7 +29,7 @@ export default async function MarketingLayout({
                 "px-4"
               )}
             >
-              {user ? "Dashboard" : "Login"}
+              {user ? "Account" : "Login"}
             </Link>
             {user && (
               <UserAccountNav 
