@@ -59,6 +59,7 @@ model User {
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  Exam                   Exam[]
 
   @@map(name: "users")
 }
@@ -70,6 +71,25 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map(name: "verification_tokens")
+}
+
+model Exam {
+  id          String   @id @default(cuid())
+  title       String
+  start       DateTime
+  end         DateTime
+  duration    Int      @default(60)
+  extratime   Int      @default(0)
+  readingtime Int      @default(0)
+  reminders   Json?
+  extra       Json?
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @default(now()) @map(name: "updated_at")
+  authorId    String
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map(name: "exams")
 }
 
 model Post {
