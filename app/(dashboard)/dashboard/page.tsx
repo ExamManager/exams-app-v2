@@ -56,7 +56,7 @@ export default function DashboardPage() {
         </div>
         <div className="hidden flex-col md:flex divide-y divide-border rounded-md border">
          
-          <div className="flex-1 space-y-4 p-4 pt-6">
+          <div className="flex-1 space-y-4 px-8 p-4 pt-6">
             <Tabs defaultValue="overview" className="space-y-4">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>

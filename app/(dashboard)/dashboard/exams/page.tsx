@@ -27,8 +27,7 @@ export const metadata: Metadata = {
   description: "Create and manage exams.",
 }
 
-import { Payment, columns } from "../../../../components/exams/planned-columns"
-import DataTable from "../../../../components/exams/planned-data"
+import { DataTable,Payment } from "../../../../components/exams/planned-data"
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -36,26 +35,26 @@ async function getData(): Promise<Payment[]> {
     {
       id: "728ed52f",
       amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      status: "processing",
+      email: "a@example.com",
     },
     {
       id: "728edf2f",
-      amount: 100,
+      amount: 130,
       status: "pending",
-      email: "m@example.com",
+      email: "b@example.com",
     },
     {
       id: "728sd52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      amount: 200,
+      status: "success",
+      email: "c@example.com",
     },
     {
       id: "7d8ed52f",
-      amount: 100,
-      status: "pending",
-      email: "g@example.com",
+      amount: 50,
+      status: "failed",
+      email: "d@example.com",
     },
     // ...
   ]
@@ -87,9 +86,9 @@ export default async function DemoPage() {
           />
         </div>
         <div className="hidden flex-col md:flex divide-y divide-border rounded-md border">
-          <div className="flex-1 space-y-4 p-4 pt-6">
-            <div className="container mx-auto py-10">
-              <DataTable columns={columns} data={data} />
+          <div className="flex-1 pt-2  ">
+            <div className="container mx-auto ">
+              <DataTable data={data} />
             </div>
           </div>
         </div>
