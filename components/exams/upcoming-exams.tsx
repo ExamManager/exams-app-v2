@@ -51,7 +51,7 @@ import {
 } from "@/components/ui/table"
 import { Exam } from "@/types/exams"
 
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 
 async function deleteExam(examId: string) {
   const response = await fetch(`/api/exams/${examId}`, {
@@ -59,11 +59,11 @@ async function deleteExam(examId: string) {
   })
 
   if (!response?.ok) {
-    toast({
-      title: "Something went wrong.",
-      description: "Your exam was not deleted. Please try again.",
-      variant: "destructive",
-    })
+    toast(
+      "Someting went wrong."
+    )
+  } else {
+    toast("Exam deleted successfully.")
   }
 
   return true

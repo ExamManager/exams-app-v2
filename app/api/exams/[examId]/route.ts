@@ -6,26 +6,26 @@ import { db } from "@/lib/db"
 import { userNameSchema } from "@/lib/validations/user"
 
 const routeContextSchema = z.object({
-  params: z.object({
-    examId: z.string(),
-  }),
+    params: z.object({
+        examId: z.string(),
+    }),
 })
 
 export async function DELETE(
     req: Request,
     context: z.infer<typeof routeContextSchema>
-  ) {
+) {
     // deletes exam
     // const response = await fetch(`/api/exams/${examId}`, {
     //        method: "DELETE",
     //    })
     try {
         const { params } = routeContextSchema.parse(context)
-        const session = await getServerSession(authOptions);
 
-        if (!session?.user || !session?.user.email) {
-            return new Response("Unauthorized", { status: 401 });
+        if (!(await verifyCurrentUserHasAccessToPost(params.examId))) {
+            return new Response(null, { status: 403 })
         }
+
         const examId = params.examId;
         const exam = await db.exam.delete({
             where: {
@@ -38,4 +38,17 @@ export async function DELETE(
         console.log(error);
         return new Response(`Exam Error: ${error.message}`, { status: 400 })
     }
-  }
+}
+
+
+async function verifyCurrentUserHasAccessToPost(examId: string) {
+    const session = await getServerSession(authOptions)
+    const count = await db.exam.count({
+        where: {
+            id: examId,
+            authorId: session?.user.id,
+        },
+    })
+
+    return count > 0
+}
