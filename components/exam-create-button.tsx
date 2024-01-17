@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
+import { NewExam } from "@/types/exams"
 
 interface ExamCreateButtonProps extends ButtonProps {}
 
@@ -18,48 +19,53 @@ export function ExamCreateButton({
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
-  // async function onClick() {
-  //   setIsLoading(true)
+  async function onClick() {
+    setIsLoading(true)
 
-  //   const response = await fetch("/api/posts", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       title: "Untitled Post",
-  //     }),
-  //   })
+    const newE: NewExam = {
+      title: "New Exam",
+      start: new Date(),
+      duration: 60,
+    }
 
-  //   setIsLoading(false)
+    const response = await fetch("/api/exams", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...newE,
+      }),
+    })
 
-  //   if (!response?.ok) {
-  //     if (response.status === 402) {
-  //       return toast({
-  //         title: "Limit of 3 posts reached.",
-  //         description: "Please upgrade to the PRO plan.",
-  //         variant: "destructive",
-  //       })
-  //     }
+    setIsLoading(false)
 
-  //     return toast({
-  //       title: "Something went wrong.",
-  //       description: "Your post was not created. Please try again.",
-  //       variant: "destructive",
-  //     })
-  //   }
+    if (!response?.ok) {
+      if (response.status === 401) {
+        return toast({
+          title: "You are not signed in.",
+          description: "Please sign in to create a new Exam.",
+          variant: "destructive",
+        })
+      }
 
-  //   const post = await response.json()
-
-  //   // This forces a cache invalidation.
-  //   router.refresh()
-
-  //   router.push(`/editor/${post.id}`)
-  // }
+      return toast({
+        title: "Something went wrong.",
+        description: "Your post was not created. Please try again.",
+        variant: "destructive",
+      })
+    } else {
+      return toast({
+        title: "Exam created.",
+        description: "Your new Exam was created.",
+        variant: "default",
+      })
+    }
+  }
 
   return (
     <button
-      // onClick={onClick}
+      onClick={onClick}
       className={cn(
         buttonVariants({ variant }),
         {

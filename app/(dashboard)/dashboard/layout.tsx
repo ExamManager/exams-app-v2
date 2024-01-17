@@ -45,6 +45,7 @@ export default async function DashboardLayout({
             user={{
               name: user.name,
               image: user.image,
+              email: user.email,
             }}/> : null}
             {dashboardConfig.accountPresets[0].UserMenu ?
             (user && (

@@ -14,7 +14,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -35,16 +34,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Exam } from "@/types/exams"
 
-
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Exam>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -68,59 +60,93 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status
+          Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize">{row.getValue("title")}</div>
     ),
     enableSorting: true
   },
   {
-    accessorKey: "email",
+    accessorKey: "start",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Amount
+          Start Time
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
+      const starttime2 = new Date(row.getValue("start"))
 
-      // Format the amount as a dollar amount
+      // Format the Date into a 24 hour time
+      const formatted = new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+      }).format(starttime2)
+
+      return <div className="text-right font-medium">{formatted}</div>
+    },
+  },
+  {
+    accessorKey: "end",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          End Time
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const endtime2 = new Date(row.getValue("end"))
+
+      // Format the amount as a 24 hour time
+      const formatted = new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+      }).format(endtime2)
+
+      return <div className="text-right font-medium">{formatted}</div>
+    },
+  },
+  {
+    accessorKey: "duration",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Duration
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const duration2 = parseFloat(row.getValue("duration"))
+
+      // Format the amount as a integer and add a " min" suffix
       const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
+        style: "decimal",
+      }).format(duration2)
 
       return <div className="text-right font-medium">{formatted}</div>
     },
@@ -129,7 +155,7 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const exams = row.original
 
       return (
         <DropdownMenu>
@@ -142,13 +168,13 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(String(exams.id))}
             >
-              Copy payment ID
+              Copy Exam ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>View Exam details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -156,8 +182,9 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ]
 
-export function DataTable<TData, TValue>({
-  data,
+
+export function DataTable({
+  data
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -185,15 +212,14 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
   })
-
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter Exams..."
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
