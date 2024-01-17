@@ -48,7 +48,7 @@ interface PostOperationsProps {
 export function PostOperations({ post }: PostOperationsProps) {
   const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
-  const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
+  const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false) 
 
   return (
     <>

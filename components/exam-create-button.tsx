@@ -23,9 +23,9 @@ export function ExamCreateButton({
     setIsLoading(true)
 
     const newE: NewExam = {
-      title: "New Exam",
+      title: "Maths Paper 2",
       start: new Date(),
-      duration: 60,
+      duration: 75,
     }
 
     const response = await fetch("/api/exams", {
@@ -39,6 +39,9 @@ export function ExamCreateButton({
     })
 
     setIsLoading(false)
+    if (response?.ok) {
+      router.refresh()
+    }
 
     if (!response?.ok) {
       if (response.status === 401) {
