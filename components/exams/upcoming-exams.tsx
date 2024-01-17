@@ -396,7 +396,7 @@ export function DataTable({
                 setIsDeleteLoading(true)
 
                 if (examIdToDelete) {
-                  const deleted = await deleteExam(examIdToDelete)
+                  const deleted = await deleteExam(String(examIdToDelete))
 
                   if (deleted) {
                     setIsDeleteLoading(false)

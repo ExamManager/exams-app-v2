@@ -58,6 +58,31 @@ export async function GET(req: Request, res: Response) {
     }
 }
 
+export async function DELETE(req: Request, res: Response) {
+    // const response = await fetch(`/api/exams/${examId}`, {
+    //        method: "DELETE",
+    //    })
+
+    try {
+        const session = await getServerSession(authOptions);
+
+        if (!session?.user || !session?.user.email) {
+            return new Response("Unauthorized", { status: 401 });
+        }
+        const examId = req.url.split("/").pop();
+        const exam = await db.exam.delete({
+            where: {
+                id: examId,
+            },
+        });
+        return new Response(JSON.stringify(exam), { status: 200 });
+    } catch (error) {
+        console.error(error);
+        console.log(error);
+        return new Response(`Exam Error: ${error.message}`, { status: 400 })
+    }
+}
+
 function calculateEndTime(start: Date, duration: number, readingtime: number, extratime: number) {
     const end = new Date(start);
     end.setMinutes(end.getMinutes() + duration + readingtime + extratime);
