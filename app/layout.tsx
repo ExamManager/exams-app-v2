@@ -7,8 +7,7 @@ import { Metadata, Viewport } from "next"
 
 import { siteConfig } from "@/config/site"
 import { absoluteUrl, cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
-import { Toaster2 } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -97,7 +96,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Analytics />
           <CommandK />
           <Toaster />
-          <Toaster2 />
           {/* <TailwindIndicator /> */}
         </ThemeProvider>
       </body>

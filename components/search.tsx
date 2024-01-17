@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { title } from "process"
 
 interface DocsSearchProps extends React.HTMLAttributes<HTMLFormElement> {}
@@ -13,11 +13,11 @@ export function DocsSearch({ className, ...props }: DocsSearchProps) {
   function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
     // it doesnt update
-    return toast({
-      title: "Something went wrong.",
-      description: "Your post was not created. Please try again.",
-      variant: "destructive",
-  })
+    return toast.error(
+      "Something went wrong.", {
+        description: "Your post was not created. Please try again.",
+      }
+    )
 
   }
 

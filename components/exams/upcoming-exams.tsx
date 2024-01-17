@@ -59,11 +59,13 @@ async function deleteExam(examId: string) {
   })
 
   if (!response?.ok) {
-    toast(
+    toast.error(
       "Someting went wrong."
     )
   } else {
-    toast("Exam deleted successfully.")
+    toast.success("Exam deleted", {
+      description: "Successfully deleted Exam"
+    })
   }
 
   return true

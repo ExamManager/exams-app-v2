@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { Icons } from "@/components/icons"
 import { NewExam } from "@/types/exams"
 
@@ -45,24 +45,28 @@ export function ExamCreateButton({
 
     if (!response?.ok) {
       if (response.status === 401) {
-        return toast({
-          title: "You are not signed in.",
-          description: "Please sign in to create a new Exam.",
-          variant: "destructive",
-        })
+        return toast.error(
+          "Unauthorized", {
+            description: "You must be logged in to create an exam.",
+            action: {
+              label: "Login",
+              onClick: () => router.push("/login"),
+            },
+          },
+        )
       }
 
-      return toast({
-        title: "Something went wrong.",
-        description: "Your post was not created. Please try again.",
-        variant: "destructive",
-      })
+      return toast.error(
+        "Something went wrong.", {
+          description: "Your new Exam was not created. Please try again."
+        },
+      )
     } else {
-      return toast({
-        title: "Exam created.",
-        description: "Your new Exam was created.",
-        variant: "default",
-      })
+      return toast.success(
+        "Exam created.", {
+          description: "Your new Exam was created.",
+        },
+      )
     }
   }
 

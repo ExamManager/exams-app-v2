@@ -26,7 +26,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { Icons } from "@/components/icons"
 import { DollarSign } from "lucide-react"
 
@@ -51,11 +51,11 @@ export function BillingForm({
     const response = await fetch("/api/users/stripe")
 
     if (!response?.ok) {
-      return toast({
-        title: "Something went wrong.",
-        description: "Please refresh the page and try again.",
-        variant: "destructive",
-      })
+      return toast(
+        "Something went wrong.", {
+          description: "Please refresh the page and try again.",
+        }
+      )
     }
 
     // Redirect to the Stripe session.

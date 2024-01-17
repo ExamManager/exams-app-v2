@@ -14,7 +14,7 @@ import "@/styles/editor.css"
 import { cn } from "@/lib/utils"
 import { postPatchSchema } from "@/lib/validations/post"
 import { buttonVariants } from "@/components/ui/button"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { Icons } from "@/components/icons"
 
 interface EditorProps {
@@ -102,18 +102,20 @@ export function Editor({ post }: EditorProps) {
     setIsSaving(false)
 
     if (!response?.ok) {
-      return toast({
-        title: "Something went wrong.",
-        description: "Your post was not saved. Please try again.",
-        variant: "destructive",
-      })
+      return toast.error(
+        "Something went wrong.", {
+          description: "Your post was not saved. Please try again.",
+        }
+      )
     }
 
     router.refresh()
 
-    return toast({
-      description: "Your post has been saved.",
-    })
+    return toast.success(
+      "Post saved", {
+        description: "Your post has been saved.",
+      }
+    )
   }
 
   if (!isMounted) {
