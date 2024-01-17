@@ -35,11 +35,12 @@ import { Exam } from "@/types/exams"
 import { get } from "http"
 
 export default async function DemoPage() {
+  const currentUser = await getCurrentUser();
   const exams: Exam[] = await db.exam.findMany({
     where: {
-        authorId: getCurrentUser().id,
+      authorId: currentUser?.id,
     },
-});
+  });
   
   return (
     <>
