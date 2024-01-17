@@ -56,7 +56,7 @@ const groups = [
       {
         label: "Alicia Koch",
         value: "personal",
-        image: null,
+        image: "",
       },
     ],
   },
@@ -66,12 +66,12 @@ const groups = [
       {
         label: "Acme Inc.",
         value: "acme-inc",
-        image: null,
+        image: "",
       },
       {
         label: "Monsters Inc.",
         value: "monsters",
-        image: null,
+        image: "",
       },
     ],
   },
@@ -96,9 +96,9 @@ export default function TeamSwitcher({ user }: UserAccountNavProps) {
     groups[0].teams[0]
   )
 
-  // set the name of the personal acciunt to the user's name
-  groups[0].teams[0].label = user.name
-  groups[0].teams[0].image = user.image
+  // set the name of the personal account to the user's name
+  groups[0].teams[0].label = user.name || "User"
+  groups[0].teams[0].image = user.image || ""
 
 
   return (
