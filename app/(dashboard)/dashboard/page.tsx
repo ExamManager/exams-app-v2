@@ -1,7 +1,5 @@
 import { Metadata } from "next"
-import Image from "next/image"
 import { AccountHeader } from "@/components/header"
-import { PostCreateButton } from "@/components/post-create-button"
 import { AccountShell } from "@/components/shell"
 
 import { Button } from "@/components/ui/button"
@@ -21,7 +19,6 @@ import {
 import { CalendarDateRangePicker } from "@/components/date-range-picker"
 import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
-import TeamSwitcher from "@/components/team-switcher"
 
 export const metadata: Metadata = {
   title: "Dashboard",
