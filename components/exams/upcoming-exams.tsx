@@ -71,10 +71,6 @@ async function deleteExam(examId: string) {
   return true
 }
 
-
-
-
-
 export function DataTable({
   data
 }) {
