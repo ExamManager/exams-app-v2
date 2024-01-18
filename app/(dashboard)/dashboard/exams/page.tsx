@@ -29,10 +29,9 @@ export const metadata: Metadata = {
   title: "Exams",
   description: "Create and manage exams.",
 }
-
+import * as React from "react"
 import { DataTable } from "../../../../components/exams/upcoming-exams"
 import { Exam } from "@/types/exams"
-import { get } from "http"
 
 export default async function DemoPage() {
   const currentUser = await getCurrentUser();
@@ -42,6 +41,7 @@ export default async function DemoPage() {
     },
   });
   
+
   return (
     <>
       <AccountShell>
@@ -64,10 +64,19 @@ export default async function DemoPage() {
             className="hidden dark:block"
           />
         </div><div className="hidden flex-col md:flex divide-y divide-border rounded-md border">
-          <div className="flex-1 pt-2  ">
+          <div className="flex-1 pt-4">
+            <h2 className="text-2xl font-bold tracking-tight ml-8">Upcoming Exams</h2>
             <div className="container mx-auto ">
               <DataTable data={exams as Exam[]} />
             </div>
+          </div>
+          <div className="flex-1 pt-4">
+            <h2 className="text-2xl font-bold tracking-tight ml-8">Past Exams</h2>
+            <div className="container mx-auto ">
+              <DataTable data={exams as Exam[]} />
+            </div>
+          </div>
+          <div className="flex-1 pt-4">
           </div>
         </div>
       </AccountShell>

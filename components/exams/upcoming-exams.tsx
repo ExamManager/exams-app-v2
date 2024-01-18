@@ -16,7 +16,7 @@ import {
 import { useRouter } from "next/navigation"
 
 import { Icons } from "../icons"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Sheet } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -227,7 +227,7 @@ export function DataTable({
                 Copy Exam ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>View customer</DropdownMenuItem>
+              <DropdownMenuItem>View Exam</DropdownMenuItem>
               <DropdownMenuItem>View Exam details</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
