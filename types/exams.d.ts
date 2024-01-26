@@ -2,6 +2,9 @@
 export type Exam = {
   id: String   
   title: String
+  subject: String
+  paper: String
+  level: String
   start: Date
   end: Date
   duration: Number
@@ -16,6 +19,9 @@ export type Exam = {
 
 export type NewExam = {
   title: String
+  subject: String
+  paper: String
+  level: String
   start: Date
   end?: Date
   duration: Number

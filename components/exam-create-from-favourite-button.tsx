@@ -7,11 +7,12 @@ import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
 import { toast } from "sonner"
 import { Icons } from "@/components/icons"
+import { StarIcon } from "lucide-react"
 import { NewExam } from "@/types/exams"
 
 interface ExamCreateButtonProps extends ButtonProps {}
 
-export function ExamCreateButton({
+export function ExamCreateFromFavouritesButton({
   className,
   variant,
   ...props
@@ -86,9 +87,9 @@ export function ExamCreateButton({
       {isLoading ? (
         <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        <Icons.logo className="mr-2 h-4 w-4" />
+        <StarIcon className="mr-2 h-4 w-4" />
       )}
-      Create Exam
+      Create from Favourites
     </button>
   )
 }
