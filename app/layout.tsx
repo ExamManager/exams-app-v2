@@ -99,6 +99,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {/* <TailwindIndicator /> */}
         </ThemeProvider>
       </body>
-    </html>
+    </html> 
   )
 }
