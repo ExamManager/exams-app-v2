@@ -9,7 +9,6 @@ import { siteConfig } from "@/config/site"
 import { absoluteUrl, cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { Analytics } from "@/components/analytics"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CommandK } from "@/components/cmdk"
 const fontSans = FontSans({
@@ -79,11 +78,18 @@ export const viewport: Viewport = {
   ],
 }
 
+import { PHProvider } from './providers'
+import dynamic from 'next/dynamic'
+
+const PostHogPageView = dynamic(() => import('./PostHogPageView'), {
+  ssr: false,
+})
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning className='scroll-smooth'>
       <head />
+      <PHProvider>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -93,12 +99,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
+          <PostHogPageView />
           <Analytics />
           <CommandK />
           <Toaster />
           {/* <TailwindIndicator /> */}
         </ThemeProvider>
       </body>
+      </PHProvider>
     </html> 
   )
 }

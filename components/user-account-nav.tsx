@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { User } from "next-auth"
 import { signOut } from "next-auth/react"
+import posthog from "posthog-js"
 
 import {
   DropdownMenu,
@@ -14,15 +15,18 @@ import {
 import { UserAvatar } from "@/components/user-avatar"
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, "name" | "image" | "email">
+  user: Pick<User, "name" | "image" | "email" >
 }
+
+import { UserIdenifying } from "./posthog"
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
     <DropdownMenu>
+    <UserIdenifying user={user} />
       <DropdownMenuTrigger>
         <UserAvatar
-          user={{ name: user.name || null, image: user.image || null}}
+          user={{ name: user.name || null, image: user.image || null }}
           className="h-8 w-8"
         />
       </DropdownMenuTrigger>
@@ -31,7 +35,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-muted-foreground">
+              <p className="text-muted-foreground w-[200px] truncate text-sm">
                 {user.email}
               </p>
             )}
@@ -52,6 +56,8 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault()
+            posthog.capture("User Signed Out")
+            posthog.reset()
             signOut({
               callbackUrl: `${window.location.origin}/login`,
             })

@@ -5,6 +5,8 @@ import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { RequiresProPlanError } from "@/lib/exceptions"
 import { getUserSubscriptionPlan } from "@/lib/subscription"
+import  PostHogClient  from "../../posthog.js"
+const posthog = PostHogClient()
 
 const postCreateSchema = z.object({
   title: z.string(),
@@ -76,7 +78,15 @@ export async function POST(req: Request) {
         id: true,
       },
     })
-
+    posthog.capture({
+      distinctId: user.id,
+      event: 'Post Created',
+      properties: {
+        post_id: post.id,
+        post_title: body.title
+      }
+    })
+  await posthog.shutdownAsync()
     return new Response(JSON.stringify(post))
   } catch (error) {
     if (error instanceof z.ZodError) {

@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email
         session.user.image = token.picture
       }
-
+      
       return session
     },
     async jwt({ token, user }) {
