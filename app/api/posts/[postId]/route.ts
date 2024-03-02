@@ -4,6 +4,9 @@ import * as z from "zod"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { postPatchSchema } from "@/lib/validations/post"
+import  PostHogClient  from "../../../posthog.js"
+const posthog = PostHogClient()
+
 
 const routeContextSchema = z.object({
   params: z.object({
@@ -19,6 +22,14 @@ export async function DELETE(
     // Validate the route params.
     const { params } = routeContextSchema.parse(context)
 
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 403 })
+    }
+
+    const { user } = session
+
     // Check if the user has access to this post.
     if (!(await verifyCurrentUserHasAccessToPost(params.postId))) {
       return new Response(null, { status: 403 })
@@ -29,6 +40,14 @@ export async function DELETE(
       where: {
         id: params.postId as string,
       },
+    })
+
+    posthog.capture({
+      distinctId: user.id,
+      event: 'Post Deleted',
+      properties: {
+        post_id: params.postId,
+      }
     })
 
     return new Response(null, { status: 204 })
@@ -46,6 +65,13 @@ export async function PATCH(
   context: z.infer<typeof routeContextSchema>
 ) {
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 403 })
+    }
+
+    const { user } = session
     // Validate route params.
     const { params } = routeContextSchema.parse(context)
 
@@ -68,6 +94,16 @@ export async function PATCH(
         title: body.title,
         content: body.content,
       },
+    })
+
+    posthog.capture({
+      distinctId: user.id,
+      event: 'Post Updated',  
+      properties: {
+        post_id: params.postId,
+        title: body.title,
+        content: body.content
+      }
     })
 
     return new Response(null, { status: 200 })

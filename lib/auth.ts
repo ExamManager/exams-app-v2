@@ -9,6 +9,9 @@ import { db } from "@/lib/db"
 import { EmailTemplate } from '../components/emails/test';
 import { Resend } from 'resend';
 
+import  PostHogClient  from "../app/posthog.js"
+const posthog = PostHogClient()
+
 const resend = new Resend(env.RESEND_API_KEY);
 
 export const authOptions: NextAuthOptions = {
@@ -79,7 +82,6 @@ export const authOptions: NextAuthOptions = {
         }
         return token
       }
-
       return {
         id: dbUser.id,
         name: dbUser.name,
@@ -87,5 +89,23 @@ export const authOptions: NextAuthOptions = {
         picture: dbUser.image,
       }
     },
+    async signIn({ user, account, profile, email, credentials }) {
+      posthog.capture({
+        distinctId: user?.email || user.id,
+        event: 'User Signed In',
+        properties: {
+          name: user.name,
+          email: user.email,
+          provider: account?.provider,
+        }
+      })
+      if (user.email) {
+        posthog.alias({
+          distinctId: user.email,
+          alias: user.id,
+        })
+      }
+      return true
+    }
   },
 }
