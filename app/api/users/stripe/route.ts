@@ -33,7 +33,7 @@ export async function GET(req: Request) {
     // The user is on the free plan.
     // Create a checkout session to upgrade.
     const stripeSession = await stripe.checkout.sessions.create({
-      success_url: billingUrl,
+      success_url: billingUrl, // TODO: Add a success page.
       cancel_url: billingUrl,
       payment_method_types: ["card"],
       mode: "subscription",

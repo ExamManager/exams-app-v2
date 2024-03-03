@@ -68,6 +68,7 @@
     "concurrently": "^8.2.2",
     "contentlayer": "0.3.4",
     "date-fns": "^2.30.0",
+    "input-otp": "^0.3.31-beta",
     "lucide-react": "^0.309.0",
     "markdown-wasm": "^1.2.0",
     "next": "14.0.4",
