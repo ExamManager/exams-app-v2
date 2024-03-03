@@ -9,7 +9,7 @@ import { db } from "@/lib/db"
 import { EmailTemplate } from '../components/emails/test';
 import { Resend } from 'resend';
 
-import  PostHogClient  from "../app/posthog.js"
+import PostHogClient from "../app/posthog.js"
 const posthog = PostHogClient()
 
 const resend = new Resend(env.RESEND_API_KEY);
@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
           })
 
           const data = await resend.emails.send({
-            from: 'ExamManager <support@examdashboard.tech>',
+            from: 'ExamManager <support@examtimer.tech>',
             to: identifier,
             subject: 'Activate Account',
             react: EmailTemplate({ action_url: url }),
@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email
         session.user.image = token.picture
       }
-      
+
       return session
     },
     async jwt({ token, user }) {
@@ -94,9 +94,11 @@ export const authOptions: NextAuthOptions = {
         distinctId: user?.email || user.id,
         event: 'User Signed In',
         properties: {
-          name: user.name,
-          email: user.email,
-          provider: account?.provider,
+          $set: {
+            name: user.name,
+            email: user.email,
+            provider: account?.provider,
+          }
         }
       })
       if (user.email) {
