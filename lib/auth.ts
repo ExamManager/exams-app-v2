@@ -54,6 +54,8 @@ export const authOptions: NextAuthOptions = {
             },
           })
 
+          const newUser = !user?.emailVerified;
+
           const data = await resend.emails.send({
             from: 'ExamManager <support@examtimer.tech>',
             to: identifier,
@@ -123,7 +125,25 @@ export const authOptions: NextAuthOptions = {
           alias: user.id,
         })
       }
-      return true
+      // Check if user is new and 
+      if (account?.provider === 'email' && user?.email) {
+        const newUser = await db.user.findUnique({
+          where: {
+            email: user.email,
+          },
+          select: {
+            emailVerified: true,
+          },
+        })
+        if (!newUser?.emailVerified) {
+          console.log('New User')
+          return '/register?email=' + user.email;
+        } else {
+          console.log('Existing User')
+        }
+      }
+
+      return true 
     }
   },
 }

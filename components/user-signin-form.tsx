@@ -16,6 +16,8 @@ import { toast } from "sonner"
 import { Icons } from "@/components/icons"
 import { set } from "date-fns"
 import OTP from "./opt-input"
+import { sign } from "crypto"
+import { useRouter } from "next/navigation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -34,6 +36,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
   const [email, setEmail] = React.useState<string>("")
   const searchParams = useSearchParams()
+  const router = useRouter()
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -42,11 +45,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     try {
       const signInResult = await signIn("email", {
         email: data.email.toLowerCase(),
-        redirect: false,
+        redirect: true,
       })
 
+      console.log(signInResult)
       setIsLoading(false)
-      setIsWaitingOTP(true)
+
+      if(!signInResult) {
+        return null
+      }
+
 
       if (!signInResult?.ok) {
         return toast.error(
@@ -56,6 +64,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         )
       }
 
+      if (signInResult?.error) {
+        return toast.error(
+          "No Access.", {
+          description: "You do not have access. Please try again.",
+        },
+        )
+      }
+
+      setIsWaitingOTP(true)
+
       return toast.success(
         "Check your email", {
         description: "We've sent you a 6-digit code. Be sure to check your spam too.",
@@ -63,6 +81,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       )
     } catch (error) {
       setIsLoading(false)
+      console.log(error)
       return toast.error(
         "Network error", {
         description: "There was a problem with the network. Please try again.",
