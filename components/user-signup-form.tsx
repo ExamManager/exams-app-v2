@@ -20,16 +20,24 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 type FormData = z.infer<typeof userAuthSchema>
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const searchParams = useSearchParams()
+  const initialEmailRef = React.useRef(searchParams?.get('email') || '')
+  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(userAuthSchema),
+    defaultValues: {
+      email: initialEmailRef.current,
+    },
   })
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
-  const searchParams = useSearchParams()
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -57,6 +65,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       },
     )
   }
+
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -86,7 +95,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign In with Email
+            Sign Up with Email
           </button>
         </div>
       </form>
