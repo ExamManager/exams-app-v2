@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { signIn } from "next-auth/react"
+import { signIn, getCsrfToken } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -23,7 +23,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const searchParams = useSearchParams()
   const initialEmailRef = React.useRef(searchParams?.get('email') || '')
   
-
   const {
     register,
     handleSubmit,
@@ -42,19 +41,28 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true)
 
-    const signInResult = await signIn("email", {
+    const csrfToken = await getCsrfToken()
+
+    const response = await fetch(
+      `/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${code}`
+    );
+
+
+    const signInResult = await signIn("signup", {
       email: data.email.toLowerCase(),
       redirect: false,
-      callbackUrl: searchParams?.get("from") || "/account",
+      intent: "registration",
     })
 
     setIsLoading(false)
+
+    console.log(signInResult)
 
     if (!signInResult?.ok) {
       
       return toast.error(
         "Something went wrong.", {
-          description: "Your sign in request failed. Please try again.",
+          description: "Your request failed. Please try again.",
         },
       )
     }
@@ -88,6 +96,24 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             {errors?.email && (
               <p className="px-1 text-xs text-red-600">
                 {errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="email">
+              Email
+            </Label>
+            <Input
+              id="password"
+              placeholder=""
+              type="password"
+              autoComplete="password"
+              disabled={isLoading || isGitHubLoading}
+              {...register("password")}
+            />
+            {errors?.password && (
+              <p className="px-1 text-xs text-red-600">
+                {errors.password.message}
               </p>
             )}
           </div>
