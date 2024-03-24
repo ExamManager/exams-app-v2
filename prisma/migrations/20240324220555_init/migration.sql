@@ -37,10 +37,17 @@ CREATE TABLE `users` (
     `email` VARCHAR(191) NULL,
     `emailVerified` DATETIME(3) NULL,
     `image` VARCHAR(191) NULL,
+    `preferences` JSON NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `stripe_customer_id` VARCHAR(191) NULL,
+    `stripe_subscription_id` VARCHAR(191) NULL,
+    `stripe_price_id` VARCHAR(191) NULL,
+    `stripe_current_period_end` DATETIME(3) NULL,
 
     UNIQUE INDEX `users_email_key`(`email`),
+    UNIQUE INDEX `users_stripe_customer_id_key`(`stripe_customer_id`),
+    UNIQUE INDEX `users_stripe_subscription_id_key`(`stripe_subscription_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -52,6 +59,24 @@ CREATE TABLE `verification_tokens` (
 
     UNIQUE INDEX `verification_tokens_token_key`(`token`),
     UNIQUE INDEX `verification_tokens_identifier_token_key`(`identifier`, `token`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `exams` (
+    `id` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `start` DATETIME(3) NOT NULL,
+    `end` DATETIME(3) NOT NULL,
+    `duration` INTEGER NOT NULL DEFAULT 60,
+    `extratime` INTEGER NOT NULL DEFAULT 0,
+    `readingtime` INTEGER NOT NULL DEFAULT 0,
+    `reminders` JSON NULL,
+    `extra` JSON NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `authorId` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -72,6 +97,9 @@ ALTER TABLE `accounts` ADD CONSTRAINT `accounts_userId_fkey` FOREIGN KEY (`userI
 
 -- AddForeignKey
 ALTER TABLE `sessions` ADD CONSTRAINT `sessions_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `exams` ADD CONSTRAINT `exams_authorId_fkey` FOREIGN KEY (`authorId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `posts` ADD CONSTRAINT `posts_authorId_fkey` FOREIGN KEY (`authorId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
