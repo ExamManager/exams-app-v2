@@ -71,6 +71,13 @@ export type DashboardConfig = {
   sidebarNav: SidebarNavItem[]
 }
 
+export type AdminConfig = {
+  presets: MainNavPresets[]
+  accountPresets: AccountNavPresets[]
+  mainNav: MainNavItem[]
+  sidebarNav: SidebarNavItem[]
+}
+
 export type AccountConfig = {
   presets: MainNavPresets[]
   accountPresets: AccountNavPresets[]
