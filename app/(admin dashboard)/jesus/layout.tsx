@@ -2,7 +2,7 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { authOptions } from "@/lib/auth"
 
-import { dashboardConfig } from "@/config/dashboard"
+import { adminConfig } from "@/config/admin"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
@@ -29,9 +29,9 @@ export default async function DashboardLayout({
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-background">
         <div className="container flex h-16 items-center justify-between py-4">
-          <MainNav items={dashboardConfig.mainNav} preset={dashboardConfig.presets[0]} />
+          <MainNav items={adminConfig.mainNav} preset={adminConfig.presets[0]} />
           <nav className="flex items-center space-x-4">
-            {dashboardConfig.accountPresets[0].AccountBadge ? 
+            {adminConfig.accountPresets[0].AccountBadge ? 
             <Link
             href="/login"
             className={cn(
@@ -41,13 +41,13 @@ export default async function DashboardLayout({
           >
             {user ? "Account" : "Login"}
           </Link> : null}
-            {dashboardConfig.accountPresets[0].TeamMenu ? <TeamSwitcher
+            {adminConfig.accountPresets[0].TeamMenu ? <TeamSwitcher
             user={{
               name: user.name,
               image: user.image,
               email: user.email,
             }}/> : null}
-            {dashboardConfig.accountPresets[0].UserMenu ?
+            {adminConfig.accountPresets[0].UserMenu ?
             (user && (
               <UserAccountNav 
                 user={{
@@ -62,7 +62,7 @@ export default async function DashboardLayout({
       </header>
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
-          <AccountNav items={dashboardConfig.sidebarNav} />
+          <AccountNav items={adminConfig.sidebarNav} />
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           {children}

@@ -26,18 +26,18 @@ export const adminConfig: AdminConfig = {
   sidebarNav: [
         {
           title: "Dashboard",
-          href: "/dashboard",
+          href: "/jesus",
           icon: "home",
         },
-        {
-          title: "Exams",
-          href: "/dashboard/exams",
-          icon: "logo",
-        },
         // {
-        //   title: "Database",
-        //   href: "/dashboard/dbs",
-        //   icon: "database",
-        // }
+        //   title: "Exams",
+        //   href: "/dashboard/exams",
+        //   icon: "logo",
+        // },
+        {
+          title: "Database",
+          href: "/jesus/db",
+          icon: "database",
+        }
   ]
 }
