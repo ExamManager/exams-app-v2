@@ -38,6 +38,7 @@ CREATE TABLE `users` (
     `emailVerified` DATETIME(3) NULL,
     `image` VARCHAR(191) NULL,
     `preferences` JSON NULL,
+    `admin` BOOLEAN NOT NULL DEFAULT false,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `stripe_customer_id` VARCHAR(191) NULL,

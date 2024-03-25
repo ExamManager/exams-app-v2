@@ -7,23 +7,24 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
 import { SiteFooter } from "@/components/site-footer"
-import { getCurrentUser } from "@/lib/session"
+import { getAdmin, getCurrentUser } from "@/lib/session"
 import { UserAccountNav } from "@/components/user-account-nav"
 import { AccountNav } from "@/components/nav"
 
 import { accountConfig } from "@/config/account"
 import TeamSwitcher from "@/components/team-switcher"
-interface DashboardLayoutProps {
+interface AdminLayoutProps {
   children: React.ReactNode
 }
 
-export default async function DashboardLayout({
+export default async function AdminLayout({
   children,
-}: DashboardLayoutProps) {
+}: AdminLayoutProps) {
     const user = await getCurrentUser()
-
-    if (!user) {
-        redirect(authOptions?.pages?.signIn || "/login")
+    const admin = await getAdmin()
+    // checks if user has admin perms - if not, redirect to account page
+    if (!admin || !user) {
+        redirect(authOptions?.pages?.signIn || "/account")
     }
   return (
     <div className="flex min-h-screen flex-col space-y-6">
