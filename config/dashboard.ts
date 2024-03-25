@@ -34,10 +34,10 @@ export const dashboardConfig: DashboardConfig = {
           href: "/dashboard/exams",
           icon: "logo",
         },
-        {
-          title: "Database",
-          href: "/dashboard/dbs",
-          icon: "database",
-        }
+        // {
+        //   title: "Database",
+        //   href: "/dashboard/dbs",
+        //   icon: "database",
+        // }
   ]
 }
