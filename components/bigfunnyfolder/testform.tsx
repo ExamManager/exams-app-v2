@@ -19,15 +19,15 @@ export default function DBPage({propTables, propTablenames}) {
         setTables(propTables);
         setTablenames(propTablenames);
 
-        const add_data = {
-            testchar: "from clientside",
-            testint: 13,
-            testfloat: 3.14,
-            testdt: "2022-01-01 13:00:00",
-            testjson: "{\"test\": \"json\"}"
-        }
+        // const add_data = {
+        //     testchar: "from clientside",
+        //     testint: 13,
+        //     testfloat: 3.14,
+        //     testdt: "2022-01-01 13:00:00",
+        //     testjson: "{\"test\": \"json\"}"
+        // }
     
-        const add_response = dbtools.ADD("test", add_data);
+        // const add_response = dbtools.ADD("test", add_data);
 
         
     }, [propTables, propTablenames]);

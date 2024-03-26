@@ -36,11 +36,6 @@ export default async function newPagePleaseWork() {
     // Wait for all promises to resolve
     var tables = await Promise.all(tableQueries);
 
-    
-
-    // console.log("TABLESSSSSS: ", tables); // Now, tables should contain all the data.
-
-
     loading = false;
 
     return (
@@ -48,8 +43,6 @@ export default async function newPagePleaseWork() {
             { loading ? <h1>Loading...</h1> :
                 <DBPage propTables={tables} propTablenames={tablenames} />
             }
-            
-            
         </>
     )
 }
