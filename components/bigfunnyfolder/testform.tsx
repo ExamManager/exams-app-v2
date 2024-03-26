@@ -27,8 +27,8 @@ export default function DBPage({propTables, propTablenames}) {
             // })
             // response has to be to the api endpoint 
 
-            const response = await fetch("/pages/api/db/db_api", {
-                method: "POST",
+            const response = await fetch("/api/db/db_api", {
+                method: "GET",
             })
 
             const data = await response.json()
