@@ -29,7 +29,7 @@ export default function DashboardPage() {
   return (
     <>
       <AccountShell>
-        <AccountHeader heading="Dashboard" text="View your dashboard.">
+        <AccountHeader heading="Admin Dashboard" text="View admin dashboard">
           <div className=" inline-flex space-x-4">
             <CalendarDateRangePicker />
             <Button>Download</Button>

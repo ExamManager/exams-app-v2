@@ -13,7 +13,7 @@ export const adminConfig: AdminConfig = {
       AccountBadge: false,
       DashboardBadge: true,
       UserMenu: true,
-      TeamMenu: true,
+      TeamMenu: false,
     },
   ],
   mainNav: [
@@ -35,9 +35,19 @@ export const adminConfig: AdminConfig = {
         //   icon: "logo",
         // },
         {
-          title: "Database",
+          title: "Overview",
           href: "/jesus/db",
           icon: "database",
+        },
+        {
+            title: "Users",
+            href: "/jesus/users",
+            icon: "user",
+        },
+        {
+            title: "Schools",
+            href: "/jesus/schools",
+            icon: "school",
         }
   ]
 }

@@ -49,13 +49,15 @@ model User {
   emailVerified DateTime?
   image         String?
   preferences   Json?
+  admin         Boolean   @default(false)
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
 
-  accounts Account[]
-  sessions Session[]
-  Post     Post[]
-  Exam     Exam[]
+  access   Access[] //new tells what perms the user has
+  accounts Account[] // other details like oauth, etc.
+  sessions Session[] // active sessions
+  posts    Post[] // posts by user
+  exams    Exam[] // exams by user
 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
@@ -87,8 +89,11 @@ model Exam {
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @default(now()) @map(name: "updated_at")
   authorId    String
+  schoolId    String
 
-  author User @relation(fields: [authorId], references: [id])
+  examsessions ExamSession[]
+  school       School        @relation(fields: [schoolId], references: [id])
+  author       User          @relation(fields: [authorId], references: [id])
 
   @@map(name: "exams")
 }
@@ -105,4 +110,75 @@ model Post {
   author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
+}
+
+model Access {
+  id     String  @id @default(cuid())
+  userId String
+  admin  Boolean @default(false)
+  //schools
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model School {
+  id        String   @id @default(cuid())
+  name      String
+  location  Json?
+  //...
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  exams        Exam[]
+  examsessions ExamSession[]
+  students     Student[]
+
+  @@map(name: "schools")
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  userId    String
+  schoolId  String
+  //...
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  school       School        @relation(fields: [schoolId], references: [id])
+  seatingplan  SeatingPlan[]
+  examsessions ExamSession[]
+
+  @@map(name: "students")
+}
+
+model ExamSession {
+  id        String   @id @default(cuid())
+  examId    String
+  schoolId  String
+  start     DateTime
+  end       DateTime
+  //...
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  seatingplan SeatingPlan[]
+  students    Student[]
+  exams       Exam          @relation(fields: [examId], references: [id])
+  school      School        @relation(fields: [schoolId], references: [id])
+
+  @@map(name: "exam_sessions")
+}
+
+model SeatingPlan {
+  id            String @id @default(cuid())
+  examSessionId String
+  studentId     String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  examSession ExamSession @relation(fields: [examSessionId], references: [id])
+  students    Student     @relation(fields: [studentId], references: [id])
+
+  @@map(name: "seating_plans")
 }

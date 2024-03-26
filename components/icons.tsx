@@ -25,6 +25,7 @@ import {
   BookCheck,
   X,
   Home,
+  School,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -46,6 +47,7 @@ export const Icons = {
   billing: CreditCard,
   ellipsis: MoreVertical,
   add: Plus,
+  school: School,
   warning: AlertTriangle,
   user: User,
   arrowRight: ArrowRight,
