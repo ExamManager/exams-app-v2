@@ -52,7 +52,6 @@ model User {
   admin         Boolean   @default(false)
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
-
   access   Access[] //new tells what perms the user has
   accounts Account[] // other details like oauth, etc.
   sessions Session[] // active sessions
@@ -181,4 +180,15 @@ model SeatingPlan {
   students    Student     @relation(fields: [studentId], references: [id])
 
   @@map(name: "seating_plans")
+}
+
+model Test {
+  id        Int      @id @default(autoincrement())
+  testchar  String?
+  testint   Int?
+  testfloat Float?
+  testdt    DateTime?
+  testjson  Json?
+
+  @@map(name: "test")
 }
