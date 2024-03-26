@@ -1,5 +1,8 @@
 "use client";
 
+
+
+
 import { AccountHeader } from "@/components/header"
 import { AccountShell } from "@/components/shell"
 
@@ -13,9 +16,12 @@ export default function DBPage({propTables, propTablenames}) {
     useEffect(() => {
         setTables(propTables);
         setTablenames(propTablenames);
+
+        
     }, [propTables, propTablenames]);
 
     console.log(tablenames)
+    console.log(propTables[3][0])
 
     return (
         <>
@@ -25,15 +31,15 @@ export default function DBPage({propTables, propTablenames}) {
                     {tablenames.map((tablename, index) => (
                         <div key={index} className="flex flex-col divide-y divide-border overflow-x-scroll rounded-md border">
                             <h4 className="text-bold text-center uppercase">{tablename}</h4>
-                            <table className="border-separate border-spacing-y-2 border border-slate-500">
+                            <table className="border border-zinc-900">
                                 <thead>
                                     <tr>
-                                        {Object.keys(tables[0][0]).map((key, idx) => (
+                                        {tables[index][0] != undefined? Object.keys(tables[index][0]).map((key, idx) => (
                                             // Using the combination of key name and index as a unique key for <th>
-                                            <th key={`header-${key}-${idx}`} className="text-bold  border border-slate-600 px-8 ">
+                                            <th key={`header-${key}-${idx}`} className="text-bold border border-zinc-900 px-8 ">
                                                 {key}
                                             </th>
-                                        ))}
+                                        )): <th>NO DATA</th>}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,7 +49,7 @@ export default function DBPage({propTables, propTablenames}) {
                                         <tr key={`row-${userIndex}`}>
                                             {Object.keys(user).map((key, index) => (
                                                 // Using the combination of user index, key name, and index as a unique key for <td>
-                                                <td key={`cell-${userIndex}-${key}-${index}`} className="border border-slate-700 px-4">
+                                                <td key={`cell-${userIndex}-${key}-${index}`} className="border border-zinc-900 px-4">
                                                     {String(user[key])}
                                                 </td>
                                             ))}
