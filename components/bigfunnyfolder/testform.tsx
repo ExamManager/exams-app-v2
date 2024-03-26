@@ -2,7 +2,7 @@
 import { AccountHeader } from "@/components/header"
 import { AccountShell } from "@/components/shell"
 
-import { handler } from "@/app/api/db/db_api"
+import { handler } from "@/app/api/db/route"
 import { useState, useEffect } from "react"
 
 import * as dbtools from "@/hooks/db_tools"
@@ -27,12 +27,9 @@ export default function DBPage({propTables, propTablenames}) {
             // })
             // response has to be to the api endpoint 
 
-            const response = await fetch("/api/db/db_api", {
-                method: "GET",
-            })
-
+            const response = await fetch("/api/db")
             const data = await response.json()
-            console.log("API DATA: ", data)
+            console.log(data)
         }
 
         fetchData()
