@@ -1,11 +1,8 @@
 "use client";
-
-
-
-
 import { AccountHeader } from "@/components/header"
 import { AccountShell } from "@/components/shell"
 
+import { handler } from "@/app/api/db/db_api"
 import { useState, useEffect } from "react"
 
 import * as dbtools from "@/hooks/db_tools"
@@ -18,22 +15,28 @@ export default function DBPage({propTables, propTablenames}) {
     useEffect(() => {
         setTables(propTables);
         setTablenames(propTablenames);
-
-        // const add_data = {
-        //     testchar: "from clientside",
-        //     testint: 13,
-        //     testfloat: 3.14,
-        //     testdt: "2022-01-01 13:00:00",
-        //     testjson: "{\"test\": \"json\"}"
-        // }
-    
-        // const add_response = dbtools.ADD("test", add_data);
-
-        
     }, [propTables, propTablenames]);
 
     console.log(tablenames)
     console.log(propTables[3][0])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // const response = await fetch("api endpoint", {
+            //     method: "GET",
+            // })
+            // response has to be to the api endpoint 
+
+            const response = await fetch("/pages/api/db/db_api", {
+                method: "POST",
+            })
+
+            const data = await response.json()
+            console.log("API DATA: ", data)
+        }
+
+        fetchData()
+    })
 
     
 
