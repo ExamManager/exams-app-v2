@@ -36,6 +36,9 @@ export default async function newPagePleaseWork() {
     // Wait for all promises to resolve
     var tables = await Promise.all(tableQueries);
 
+    // const x = await fetch("/api/db")
+    // console.log(await x)
+
     loading = false;
 
     return (
