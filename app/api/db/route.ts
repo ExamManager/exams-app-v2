@@ -1,10 +1,11 @@
-import * as dbtools from "@/hooks/db_tools"
+// import * as dbtools from "@/hooks/db_tools"
 
 export async function GET(
     req: Request,
+    res: Response
 ) {
     try {
-        const data = await dbtools.DESC("users");
+        // const data = await dbtools.DESC("users");
         return new Response("hi", { status: 200 });
         // res.status(200).send({messsage: "hi there"});
     }

@@ -28,7 +28,13 @@ export default function DBPage({propTables, propTablenames}) {
             // response has to be to the api endpoint 
 
             // const response = await fetch("/api/users/stripe") //----- for some reason this works 
-            const response = await fetch("/api/db") // ----- for some reason this doesn't work... but it does find the endpoint
+            const response = await fetch(`/api/db`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+            // ----- for some reason this doesn't work... but it does find the endpoint
             console.log(await response)
         }
 
