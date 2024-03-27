@@ -4,10 +4,6 @@ import { AccountShell } from "@/components/shell"
 
 import { useState, useEffect } from "react"
 
-async function please() {
-    const data = await fetch("/api/database")
-    console.log(await data)
-}
 
 export default function DBPage({propTables, propTablenames}) {
     // Now that tables is defined, you can proceed to define form_inputs
@@ -22,7 +18,15 @@ export default function DBPage({propTables, propTablenames}) {
     console.log(tablenames)
     console.log(propTables[3][0])
 
-    please()
+    useEffect(() => {
+        const testfunc = async () => {
+            const data = await fetch("/api/database")
+            console.log(data)
+        }
+
+        testfunc()
+    }, [])
+    
     
 
     return (
