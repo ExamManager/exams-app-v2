@@ -6,7 +6,7 @@ export async function GET(
 ) {
     try {
         // const data = await dbtools.DESC("users");
-        return new Response("hi", { status: 202 });
+        return new Response("this message actually arrives", { status: 202 });
         // res.status(200).send({messsage: "hi there"});
     }
     catch (error) {

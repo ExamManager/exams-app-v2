@@ -2,10 +2,15 @@
 import { AccountHeader } from "@/components/header"
 import { AccountShell } from "@/components/shell"
 
-import { handler } from "@/app/api/db/route"
+import { handler } from "@/app/api/database/route"
 import { useState, useEffect } from "react"
 
 import * as dbtools from "@/hooks/db_tools"
+
+async function please() {
+    const data = await fetch("/api/database")
+    console.log(await data)
+}
 
 export default function DBPage({propTables, propTablenames}) {
     // Now that tables is defined, you can proceed to define form_inputs
@@ -20,28 +25,28 @@ export default function DBPage({propTables, propTablenames}) {
     console.log(tablenames)
     console.log(propTables[3][0])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // const response = await fetch("api endpoint", {
-            //     method: "GET",
-            // })
-            // response has to be to the api endpoint 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         // const response = await fetch("api endpoint", {
+    //         //     method: "GET",
+    //         // })
+    //         // response has to be to the api endpoint 
 
-            // const response = await fetch("/api/users/stripe") //----- for some reason this works 
-            const response = await fetch(`/api/db`, {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              })
-            // ----- for some reason this doesn't work... but it does find the endpoint
-            console.log(await response)
-        }
+    //         // const response = await fetch("/api/users/stripe") //----- for some reason this works 
+    //         const response = await fetch(`/api/db`, {
+    //             method: "GET",
+    //             headers: {
+    //               "Content-Type": "application/json",
+    //             },
+    //           })
+    //         // ----- for some reason this doesn't work... but it does find the endpoint
+    //         console.log(await response)
+    //     }
 
-        fetchData()
-    })
+    //     fetchData()
+    // })
 
-    
+    please()
 
     return (
         <>
