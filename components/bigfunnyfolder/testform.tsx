@@ -34,8 +34,10 @@ export default function DBPage({propTables, propTablenames}) {
                   "Content-Type": "application/json",
                 },
               })
+
+            const res = await response.json()
             // ----- for some reason this doesn't work... but it does find the endpoint
-            console.log(await response)
+            console.log(res)
         }
 
         fetchData()
