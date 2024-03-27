@@ -25,6 +25,9 @@ export function ExamCreateButton({
     const newE: NewExam = {
       title: "Maths Paper 2",
       start: new Date(),
+      subject: "Maths",
+      paper: "Paper 2",
+      level: "HL",
       duration: 75,
     }
 
