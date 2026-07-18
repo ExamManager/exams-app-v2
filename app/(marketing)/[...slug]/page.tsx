@@ -7,7 +7,7 @@ import "@/styles/mdx.css"
 import { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
-import { absoluteUrl, getAppUrl } from "@/lib/utils"
+import { absoluteUrl } from "@/lib/utils"
 
 interface PageProps {
   params: {
@@ -35,7 +35,7 @@ export async function generateMetadata({
     return {}
   }
 
-  const ogUrl = new URL(`${getAppUrl()}/api/og`)
+  const ogUrl = new URL(absoluteUrl("/api/og"))
   ogUrl.searchParams.set("heading", page.title)
   ogUrl.searchParams.set("type", siteConfig.name)
   ogUrl.searchParams.set("mode", "light")
