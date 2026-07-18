@@ -14,7 +14,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { Icons } from "@/components/icons"
+import { set } from "date-fns"
 import OTP from "./opt-input"
+import { sign } from "crypto"
 import { useRouter } from "next/navigation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
@@ -32,22 +34,28 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [isWaitingOTP, setIsWaitingOTP] = React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
-  const [isGoogleLoading, setIsGoogleLoading] = React.useState<boolean>(false)
   const [email, setEmail] = React.useState<string>("")
+  const searchParams = useSearchParams()
   const router = useRouter()
 
   async function onSubmit(data: FormData) {
-    console.log("signin")
     setIsLoading(true)
     setEmail(data.email)
+
     try {
       const signInResult = await signIn("email", {
         email: data.email.toLowerCase(),
         redirect: false,
+        intent: "login",
       })
 
       console.log(signInResult)
       setIsLoading(false)
+
+      if(!signInResult) {
+        return null
+      }
+
 
       if (!signInResult?.ok) {
         return toast.error(
@@ -101,7 +109,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                   autoCapitalize="none"
                   autoComplete="email"
                   autoCorrect="off"
-                  disabled={isLoading || isGitHubLoading || isGoogleLoading}
+                  disabled={isLoading || isGitHubLoading}
                   {...register("email")}
                 />
                 {errors?.email && (
@@ -110,20 +118,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                   </p>
                 )}
               </div>
-              {/* <div className="flex gap-2"> */}
-                <button type="submit" className={cn(buttonVariants())} disabled={isLoading} >
-                  {isLoading && (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Sign In with Email
-                </button>
-               {/* <button type="submit" className={cn(buttonVariants())} disabled={isLoading} >
-                  {isLoading && (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Sign In One Time Password
-                </button> */}
-              {/* </div> */}
+              <button className={cn(buttonVariants())} disabled={isLoading}>
+                {isLoading && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Sign In with Email
+              </button>
             </div>
           </form>
           <div className="relative">
@@ -143,7 +143,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               setIsGitHubLoading(true)
               signIn("github")
             }}
-            disabled={isLoading || isGitHubLoading || isGoogleLoading}
+            disabled={isLoading || isGitHubLoading}
           >
             {isGitHubLoading ? (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
@@ -152,33 +152,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             )}{" "}
             Github
           </button>
-          <button
-            type="button"
-            className={cn(buttonVariants({ variant: "outline" }))}
-            onClick={() => {
-              setIsGoogleLoading(true)
-              signIn("google")
-            }}
-            disabled={isLoading || isGitHubLoading || isGoogleLoading}
-          >
-            {isGitHubLoading ? (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Icons.gitHub className="mr-2 h-4 w-4" />
-            )}{" "}
-            Google
-          </button>
         </div>
         :
-        <div className="">
+        <div>
           <OTP email={email} />
-          <div className="">
-            <button className={cn(buttonVariants({ variant: "link" }))} onClick={() => setIsWaitingOTP(false)}>
-              <Icons.chevronLeft className="mr-2 h-4 w-4" />
-              Change Email
-            </button>
-          </div>
-
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
         </div>
 
       }

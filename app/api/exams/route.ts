@@ -21,7 +21,6 @@ export async function POST(req: Request, res: Response) {
         const exam = await db.exam.create({
             data: {
                 title: String(NewExamToAdd.title),
-                school: "SchoolCreateNestedOneWithoutExamsInput",
                 start: NewExamToAdd.start || '',
                 end: NewExamToAdd.end || calculateEndTime(NewExamToAdd.start, Number(NewExamToAdd.duration || 0), Number(NewExamToAdd.readingtime) || 0, Number(NewExamToAdd.extratime) || 0),
                 duration: Number(NewExamToAdd.duration || 0),

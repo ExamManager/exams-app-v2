@@ -25,7 +25,6 @@ import {
   BookCheck,
   X,
   Home,
-  School,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -40,14 +39,12 @@ export const Icons = {
   chevronRight: ChevronRight,
   trash: Trash,
   post: FileText,
-  database: Command,
   page: File,
   media: Image,
   settings: Settings,
   billing: CreditCard,
   ellipsis: MoreVertical,
   add: Plus,
-  school: School,
   warning: AlertTriangle,
   user: User,
   arrowRight: ArrowRight,
