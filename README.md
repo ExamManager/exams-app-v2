@@ -1,20 +1,20 @@
 # ExamManager v2
 
-Taxonomy-era ExamManager — a Next.js 14 exam management app built with Prisma, NextAuth, Stripe subscriptions, and Contentlayer docs/blog.
+Next.js exam management app — exam dashboard, auth, Stripe billing, and MDX docs/blog.
 
-This is an earlier generation of ExamManager (forked from the open-source Taxonomy starter and adapted for exam coordination). Prefer [exams-app-v3](https://github.com/ExamManager/exams-app-v3) for the current product direction.
+Built on the open-source Taxonomy starter and adapted for exam coordination. Prefer [exams-app-v3](https://github.com/ExamManager/exams-app-v3) for the current product direction.
 
 ## Stack
 
-- [Next.js](https://nextjs.org/) App Router + Server Components
-- [Prisma](https://www.prisma.io/) ORM
-- [NextAuth.js](https://next-auth.js.org/) authentication
-- [Stripe](https://stripe.com/) subscriptions
-- [Resend](https://resend.com/) email
-- [Radix UI](https://www.radix-ui.com/) + [Tailwind CSS](https://tailwindcss.com/)
-- [Contentlayer](https://www.contentlayer.dev/) + MDX (docs & blog)
-- [PostHog](https://posthog.com/) analytics
-- TypeScript + Zod
+- Next.js 14 App Router and React
+- TypeScript, Tailwind CSS, Radix UI
+- Prisma ORM
+- NextAuth.js
+- Stripe subscriptions
+- Resend email
+- Contentlayer + MDX
+- PostHog analytics
+- Yarn
 
 ## Features
 
@@ -24,36 +24,44 @@ This is an earlier generation of ExamManager (forked from the open-source Taxono
 - Marketing pages, docs, and blog
 - OG image generation
 
-## Getting started
+## Local development
 
-1. Install dependencies:
-
-```sh
-pnpm install
-```
-
-2. Copy env and fill in values:
-
-```sh
+```bash
+yarn install
 cp .env.example .env
-```
-
-3. Generate the Prisma client and run migrations against your database, then start the app:
-
-```sh
-pnpm prisma generate
-pnpm dev
+yarn prisma generate
+yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Related repos
+## Environment
 
-- [exams-app-v1](https://github.com/ExamManager/exams-app-v1) — first ExamManager app
-- [exams-app-v2](https://github.com/ExamManager/exams-app-v2) — this repo
-- [exams-app-v3](https://github.com/ExamManager/exams-app-v3) — latest ExamManager app
-- [exams-landing](https://github.com/ExamManager/exams-landing) — waitlist / landing page
+Copy `.env.example` and fill in values. Required groups typically include:
+
+- `NEXT_PUBLIC_APP_URL`, `NEXTAUTH_URL`, `NEXTAUTH_SECRET`
+- `DATABASE_URL`
+- `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` (optional)
+- `RESEND_API_KEY`, Stripe keys, PostHog keys as needed
+
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `yarn dev` | Development server |
+| `yarn build` | Production build |
+| `yarn start` | Serve production build |
+| `yarn lint` | ESLint |
+| `yarn turbo` | Dev with Turbopack |
+
+## Related repositories
+
+| Repo | Role |
+| --- | --- |
+| [exams-landing](https://github.com/ExamManager/exams-landing) | Waitlist / marketing landing |
+| [exams-app-v1](https://github.com/ExamManager/exams-app-v1) | Vue 3 exam timer |
+| [exams-app-v3](https://github.com/ExamManager/exams-app-v3) | T3 / Drizzle SaaS rewrite |
 
 ## License
 
-Licensed under the [MIT License](./LICENSE.md).
+MIT — see [LICENSE.md](./LICENSE.md).
