@@ -11,7 +11,6 @@ import { AccountTableOfContents } from "@/components/toc"
 import "@/styles/mdx.css"
 import { Metadata } from "next"
 
-import { env } from "@/env.mjs"
 import { absoluteUrl, cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
@@ -41,9 +40,7 @@ export async function generateMetadata({
     return {}
   }
 
-  const url = env.NEXT_PUBLIC_APP_URL
-
-  const ogUrl = new URL(`${url}/api/og`)
+  const ogUrl = new URL(absoluteUrl("/api/og"))
   ogUrl.searchParams.set("heading", guide.title)
   ogUrl.searchParams.set("type", "Guide")
   ogUrl.searchParams.set("mode", "dark")

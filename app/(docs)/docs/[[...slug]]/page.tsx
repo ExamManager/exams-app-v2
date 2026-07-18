@@ -10,7 +10,6 @@ import { AccountTableOfContents } from "@/components/toc"
 import "@/styles/mdx.css"
 import { Metadata } from "next"
 
-import { env } from "@/env.mjs"
 import { absoluteUrl } from "@/lib/utils"
 
 interface DocPageProps {
@@ -39,9 +38,7 @@ export async function generateMetadata({
     return {}
   }
 
-  const url = env.NEXT_PUBLIC_APP_URL
-
-  const ogUrl = new URL(`${url}/api/og`)
+  const ogUrl = new URL(absoluteUrl("/api/og"))
   ogUrl.searchParams.set("heading", doc.description ?? doc.title)
   ogUrl.searchParams.set("type", "Documentation")
   ogUrl.searchParams.set("mode", "dark")

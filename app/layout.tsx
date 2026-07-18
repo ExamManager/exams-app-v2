@@ -28,7 +28,10 @@ interface RootLayoutProps {
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ?? "https://exammanager.app"
+    process.env.NEXT_PUBLIC_APP_URL ??
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "https://exams-app-v2.vercel.app")
   ),
   title: {
     default: siteConfig.name,

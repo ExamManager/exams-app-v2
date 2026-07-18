@@ -16,6 +16,18 @@ export function formatDate(input: string | number): string {
   })
 }
 
+export function getAppUrl() {
+  if (env.NEXT_PUBLIC_APP_URL) {
+    return env.NEXT_PUBLIC_APP_URL
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+
+  return "https://exams-app-v2.vercel.app"
+}
+
 export function absoluteUrl(path: string) {
-  return `${env.NEXT_PUBLIC_APP_URL}${path}`
+  return `${getAppUrl()}${path}`
 }
