@@ -1,7 +1,8 @@
 {
-  "name": "exammanager_v2",
+  "name": "exams-app-v2",
   "version": "0.2.0",
   "private": true,
+  "description": "ExamManager v2 — Taxonomy-era Next.js Prisma exam manager with auth, Stripe, and Contentlayer",
   "author": {
     "name": "daniensi",
     "url": "https://twitter.com/dani_duese"

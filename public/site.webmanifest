@@ -1,6 +1,6 @@
 {
-  "name": "Taxonomy",
-  "short_name": "Taxonomy",
+  "name": "ExamManager",
+  "short_name": "ExamManager",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

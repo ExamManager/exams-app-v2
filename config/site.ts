@@ -3,11 +3,11 @@ import { SiteConfig } from "types"
 export const siteConfig: SiteConfig = {
   name: "ExamManager",
   description:
-    "An open source application built using the new router, server components and everything new in Next.js 13.",
-  url: "https://tx.shadcn.com",
-  ogImage: "https://tx.shadcn.com/og.jpg",
+    "Manage exams more efficiently — ExamManager v2 built with Next.js, Prisma, and Stripe.",
+  url: "https://exammanager.app",
+  ogImage: "https://exammanager.app/og.jpg",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/taxonomy",
+    twitter: "https://twitter.com/dani_duese",
+    github: "https://github.com/ExamManager/exams-app-v2",
   },
 }
