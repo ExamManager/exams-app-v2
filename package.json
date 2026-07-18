@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "description": "ExamManager v2 \u2014 Next.js Prisma exam manager with auth, Stripe, and Contentlayer",
   "author": {
