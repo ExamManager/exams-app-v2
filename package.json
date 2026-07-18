@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "description": "ExamManager v2 \u2014 Next.js Prisma exam manager with auth, Stripe, and Contentlayer",
   "author": {
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "concurrently \"contentlayer dev\" \"next dev\"",
-    "build": "contentlayer build && next build",
+    "build": "contentlayer build; next build",
     "turbo": "next dev --turbo",
     "start": "next start",
     "lint": "next lint",
