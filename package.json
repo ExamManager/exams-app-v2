@@ -2,6 +2,9 @@
   "name": "exams-app-v2",
   "version": "0.2.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "description": "ExamManager v2 \u2014 Next.js Prisma exam manager with auth, Stripe, and Contentlayer",
   "author": {
     "name": "daniensi",
