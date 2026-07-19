@@ -1,8 +1,25 @@
 # ExamManager v2
 
+> **Deprecated portfolio showcase.** Auth and billing are disabled in production.
+> Prefer [exams-app-v3](https://github.com/ExamManager/exams-app-v3) for the current product direction.
+
 Next.js exam management app — exam dashboard, auth, Stripe billing, and MDX docs/blog.
 
-Built on the open-source Taxonomy starter and adapted for exam coordination. Prefer [exams-app-v3](https://github.com/ExamManager/exams-app-v3) for the current product direction.
+Built on the open-source Taxonomy starter and adapted for exam coordination.
+
+## Showcase status
+
+This deployment is a **read-only marketing demo**. Sign-in / sign-up APIs return `503`, and login/register pages show an unavailable notice.
+
+Public pages that should work cleanly:
+
+- `/` — marketing home
+- `/pricing` — illustrative pricing
+- `/blog` — blog
+- `/docs` — documentation
+- `/privacy`, `/terms` — placeholder legal pages (demo content)
+
+Protected app areas (`/dashboard`, `/account`, `/editor`) redirect to login, which is intentionally non-functional in showcase mode.
 
 ## Stack
 
@@ -19,8 +36,8 @@ Built on the open-source Taxonomy starter and adapted for exam coordination. Pre
 ## Features
 
 - Exam dashboard and content editing
-- Auth (GitHub OAuth + email)
-- Free / Pro billing via Stripe
+- Auth (GitHub OAuth + email) — **disabled in showcase**
+- Free / Pro billing via Stripe — **disabled in showcase**
 - Marketing pages, docs, and blog
 - OG image generation
 
@@ -35,6 +52,12 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+To build without a full secrets set (CI / portfolio):
+
+```bash
+SKIP_ENV_VALIDATION=1 yarn build
+```
+
 ## Environment
 
 Copy `.env.example` and fill in values. Required groups typically include:
@@ -43,6 +66,8 @@ Copy `.env.example` and fill in values. Required groups typically include:
 - `DATABASE_URL`
 - `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` (optional)
 - `RESEND_API_KEY`, Stripe keys, PostHog keys as needed
+
+`NEXTAUTH_SECRET` must come from the environment when auth is re-enabled — there is no hardcoded demo secret.
 
 ## Commands
 

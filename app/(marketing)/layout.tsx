@@ -1,6 +1,7 @@
 import Link from "next/link"
 
-import { marketingConfig } from "@/config/marketing"
+import { marketingConfig, marketingCta } from "@/config/marketing"
+import { AUTH_DISABLED } from "@/lib/auth-disabled"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
@@ -23,16 +24,26 @@ export default async function MarketingLayout({
           <MainNav items={marketingConfig.mainNav} preset={marketingConfig.presets[0]} />
           <nav className="flex items-center space-x-4">
             <Link
-              href="/login"
+              href={
+                AUTH_DISABLED
+                  ? marketingCta.header.href
+                  : user
+                    ? "/account"
+                    : marketingCta.header.href
+              }
               className={cn(
                 buttonVariants({ variant: "secondary", size: "sm" }),
                 "px-4"
               )}
             >
-              {user ? "Account" : "Login"}
+              {AUTH_DISABLED
+                ? marketingCta.header.label
+                : user
+                  ? "Account"
+                  : marketingCta.header.label}
             </Link>
-            {user && (
-              <UserAccountNav 
+            {!AUTH_DISABLED && user && (
+              <UserAccountNav
                 user={{
                   name: user.name,
                   image: user.image,

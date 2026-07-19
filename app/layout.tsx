@@ -39,11 +39,13 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
+    "ExamManager",
+    "exam manager",
+    "exam timer",
+    "exam coordination",
     "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
+    "Prisma",
+    "portfolio demo",
   ],
   authors: [
     {

@@ -33,113 +33,40 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Product",
       items: [
         {
-          title: "Introduction",
+          title: "Overview",
           href: "/docs/documentation",
         },
         {
-          title: "Contentlayer",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Components",
+          title: "Classroom timer",
           href: "/docs/documentation/components",
         },
         {
-          title: "Code Blocks",
-          href: "/docs/documentation/code-blocks",
-        },
-        {
-          title: "Style Guide",
+          title: "Timetables & seating",
           href: "/docs/documentation/style-guide",
         },
         {
-          title: "Search",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Plans & demo limits",
+          href: "/docs/documentation/code-blocks",
         },
       ],
     },
     {
-      title: "Blog",
+      title: "Guides",
       items: [
         {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "All guides",
+          href: "/guides",
         },
         {
-          title: "Build your own",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Classroom timer basics",
+          href: "/guides/classroom-timer",
         },
         {
-          title: "Writing Posts",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-      ],
-    },
-    {
-      title: "Account",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Layouts",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Server Components",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Authentication",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Database with Prisma",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "API Routes",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-      ],
-    },
-    {
-      title: "Marketing Site",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "File Structure",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Tailwind CSS",
-          href: "/docs/in-progress",
-          disabled: true,
-        },
-        {
-          title: "Typography",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Planning multiple exams",
+          href: "/guides/multi-exam-planning",
         },
       ],
     },

@@ -5,7 +5,7 @@ import GitHubProvider from "next-auth/providers/github"
 import  generateOTP  from "@/lib/validations/otp"
 
 import { env } from "@/env.mjs"
-import { siteConfig } from "@/config/site"
+import { AUTH_DISABLED } from "@/lib/auth-disabled"
 import { db } from "@/lib/db"
 import { EmailTemplate as EmailTemplateNewUser } from '../components/emails/newuser';
 import { EmailTemplate as EmailTemplateSignIn } from '../components/emails/signin';
@@ -16,32 +16,26 @@ const posthog = PostHogClient()
 
 const resend = new Resend(env.RESEND_API_KEY || "re_missing_at_build");
 
+// Require a real secret from the environment. Never use a hardcoded fallback —
+// that would allow forging JWTs in production if the string were known.
+const nextAuthSecret =
+  process.env.NEXTAUTH_SECRET || env.NEXTAUTH_SECRET || undefined
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
   },
-  // Portfolio/demo fallback so marketing pages render without full secrets.
-  secret:
-    env.NEXTAUTH_SECRET ||
-    process.env.NEXTAUTH_SECRET ||
-    "exams-app-v2-portfolio-demo-secret",
+  secret: nextAuthSecret,
   pages: {
     signIn: "/login",
     newUser: "/account/register",
   },
-  // pages: {
-  //   signIn: '/auth/signin',
-  //   signOut: '/auth/signout',
-  //   error: '/auth/error', // Error code passed in query string as ?error=
-  //   verifyRequest: '/auth/verify-request', // (used for check email message)
-  //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  // },
   providers: [
     GitHubProvider({
-      clientId: env.GITHUB_CLIENT_ID || "portfolio-demo-github-client-id",
-      clientSecret: env.GITHUB_CLIENT_SECRET || "portfolio-demo-github-client-secret",
+      clientId: env.GITHUB_CLIENT_ID || process.env.GITHUB_CLIENT_ID || "",
+      clientSecret:
+        env.GITHUB_CLIENT_SECRET || process.env.GITHUB_CLIENT_SECRET || "",
     }),
     EmailProvider({
       maxAge: 5 * 60,
@@ -95,9 +89,6 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user }) {
-      console.log("JWT Callback")
-      console.log(token)
-      console.log(user)
       const dbUser = await db.user.findFirst({
         where: {
           email: token.email,
@@ -117,7 +108,11 @@ export const authOptions: NextAuthOptions = {
         picture: dbUser.image,
       }
     },
-    async signIn({ user, account, profile, email, credentials, intent }) {
+    async signIn({ user, account }) {
+      if (AUTH_DISABLED) {
+        return false
+      }
+
       posthog.capture({
         distinctId: user?.email || user.id,
         event: 'User Signed In',
@@ -135,7 +130,7 @@ export const authOptions: NextAuthOptions = {
           alias: user.id,
         })
       }
-      // Check if user is new and 
+      // Check if user is new and
       if (account?.provider === 'email' && user?.email) {
         const newUser = await db.user.findUnique({
           where: {
@@ -146,15 +141,12 @@ export const authOptions: NextAuthOptions = {
           },
         })
         if (!newUser?.emailVerified) {
-          console.log('New User')
           return false
-        } else {
-          console.log('Existing User')
-          return Promise.resolve(true)
         }
+        return true
       }
 
-      return true 
+      return true
     },
   },
 }

@@ -24,7 +24,8 @@ export default async function BlogPage() {
             Blog
           </h1>
           <p className="text-xl text-muted-foreground">
-            A blog built using Contentlayer. Posts are written in MDX.
+            Notes on exam timing and classroom workflows from the ExamManager V2
+            portfolio showcase.
           </p>
         </div>
       </div>

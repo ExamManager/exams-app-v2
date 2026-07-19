@@ -19,8 +19,8 @@ export const dashboardConfig: DashboardConfig = {
   mainNav: [
         {
           title: "Pricing",
-          href: "/prices",
-          disabled: true,
+          href: "/pricing",
+          disabled: false,
         },
       ],
   sidebarNav: [
