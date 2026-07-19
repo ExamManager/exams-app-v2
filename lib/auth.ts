@@ -22,6 +22,11 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  // Portfolio/demo fallback so marketing pages render without full secrets.
+  secret:
+    env.NEXTAUTH_SECRET ||
+    process.env.NEXTAUTH_SECRET ||
+    "exams-app-v2-portfolio-demo-secret",
   pages: {
     signIn: "/login",
     newUser: "/account/register",
@@ -35,8 +40,8 @@ export const authOptions: NextAuthOptions = {
   // },
   providers: [
     GitHubProvider({
-      clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
+      clientId: env.GITHUB_CLIENT_ID || "portfolio-demo-github-client-id",
+      clientSecret: env.GITHUB_CLIENT_SECRET || "portfolio-demo-github-client-secret",
     }),
     EmailProvider({
       maxAge: 5 * 60,
