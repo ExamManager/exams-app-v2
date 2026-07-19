@@ -7,16 +7,14 @@ export function DeprecationBanner() {
       aria-live="polite"
       className="sticky top-0 z-[60] w-full border-b border-amber-800/25 bg-amber-500 text-amber-950"
     >
-      <div className="mx-auto flex w-full max-w-7xl items-start gap-2.5 px-4 py-2.5 text-left text-sm leading-snug sm:items-center sm:justify-center sm:gap-3 sm:text-center">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center text-xs leading-none sm:gap-2.5 sm:text-sm">
         <AlertTriangleIcon
-          className="mt-0.5 h-4 w-4 shrink-0 sm:mt-0"
+          className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4"
           aria-hidden="true"
         />
-        <p className="min-w-0 flex-1 sm:flex-none">
+        <p className="min-w-0 truncate">
           <span className="font-semibold">Deprecated showcase.</span> ExamManager
-          is no longer an active product — this site is kept online only to show
-          what it once was. Most features no longer work (databases, auth,
-          billing, and more).
+          is no longer an active product — portfolio demo only.
         </p>
       </div>
     </div>
