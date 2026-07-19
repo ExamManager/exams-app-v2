@@ -85,6 +85,7 @@ export const viewport: Viewport = {
 
 import { PHProvider } from './providers'
 import dynamic from 'next/dynamic'
+import { DeprecationBanner } from "@/components/deprecation-banner"
 
 const PostHogPageView = dynamic(() => import('./PostHogPageView'), {
   ssr: false,
@@ -103,6 +104,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="sticky top-0 z-[60]">
+            <DeprecationBanner />
+          </div>
           {children}
           <PostHogPageView />
           <Analytics />
